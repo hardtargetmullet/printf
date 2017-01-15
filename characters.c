@@ -1,0 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   characters.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/15 11:08:34 by anieto            #+#    #+#             */
+/*   Updated: 2017/01/15 08:03:51 by anieto           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./includes/libftprintf.h"
+
+void	char_print(int c, t_flags *flags)
+{
+	int	i;
+
+	i = 0;
+	if (flags->neg_sign)
+		ft_putchar(c);
+	if (flags->field_width)
+	{
+		while (i < flags->field_width - 1)
+		{
+			ft_putchar(' ');
+			i++;
+		}
+	}
+	if (!flags->neg_sign)
+		ft_putchar(c);
+	flags->total += i + 1;
+}
+
+static void	wide_print(char *p, t_flags *flags)
+{
+	int	i;
+
+	i = 0;
+	if (flags->neg_sign)
+		ft_putstr(p);
+	if (flags->field_width)
+		while (i < flags->field_width - (int)ft_strlen(p))
+		{
+			ft_putchar(' ');
+			i++;
+		}
+	if (!flags->neg_sign)
+		ft_putstr(p);
+	flags->total += i + ft_strlen(p);
+}
+
+static void	wide_handle(wint_t w, t_flags *flags)
+{
+	char *p;
+
+	p = ft_strnew(3);
+	if (w <= 0x07f)
+		p[0] = w;
+	else if (w <= 0x07ff)
+	{
+		p[0] = (w >> 6) + 0xc0;
+		p[1] = (w & 0x3f) + 0x80;
+	}
+	else if (w <= 0xFFFF)
+	{
+		p[0] = (w >> 12) + 0xe0;
+		p[1] = ((w >> 6) & 0x3f) + 0x80;
+		p[2] = (w & 0x3f) + 0x80;
+	}
+	else if (w <= 0x10FFFF)
+	{
+		p[0] = (w >> 18) + 0xf0;
+		p[1] = (w >> 12 & 0x3f) + 0x80;
+		p[2] = (w >> 6 & 0x3f) + 0x80;
+		p[3] = (w & 0x3f) + 0xc80;
+	}
+	wide_print(p, flags);
+}
+
+void	characters(va_list ap, t_flags *flags, char spec)
+{
+	if (spec == 'c' && !flags->l_mod)
+		char_print(va_arg(ap, int), flags);
+	else
+		wide_handle(va_arg(ap, wint_t), flags);
+}
