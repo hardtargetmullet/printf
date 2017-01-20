@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 20:56:46 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/19 21:14:59 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:39:21 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_ismodflag(int c)
 
 void		set_flags(char const *fmt, t_flags *flags)
 {
-	while (*fmt && !ft_isalpha(*fmt))
+	while (*fmt && !ft_isalpha(*fmt) && *fmt != '%')
 	{
 		if (*fmt == '-')
 			flags->neg_sign = 1;
@@ -114,7 +114,7 @@ int			printer(char const *fmt, va_list ap, t_flags *flags)
 	{
 		init_flags(flags);
 		if (*fmt == '%' && fmt++)
-		{
+		{	
 			set_flags(fmt, flags);
 			while (*fmt && !ft_isalpha(*fmt) && *fmt != '%')
 				fmt++;
