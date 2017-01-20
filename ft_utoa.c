@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/17 20:51:33 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/13 08:58:54 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/18 19:13:15 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,12 +152,12 @@ char *ft_utoa_base(unsigned long long value, int base, int lc)
 	return (p);
 }
 
-char *ft_ltoa_base(long value, int base)
+char *ft_ltoa_base(long long value, int base)
 {
-	char	*p;
-	char	*b = "0123456789abcdef";
-	long	n;
-	int		len;
+	char		*p;
+	char		*b = "0123456789abcdef";
+	long long	n;
+	int			len;
 
 	n = value;
 	len = 0;

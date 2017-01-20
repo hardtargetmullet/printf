@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 17:39:21 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/10 22:19:44 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/20 10:38:09 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			number(va_list ap, t_flags *flags, char c);
 void			unumber(va_list ap, t_flags *flags, char c);
 void			pointer(void *v, t_flags *flags);
 void			binary(long long num, t_flags *flags);
+char			*wide_to_string(wint_t w);
 int				ft_ismodflag(int c);
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
@@ -56,7 +57,7 @@ char			*ft_strnew(size_t size);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(int value, int base);
-char			*ft_ltoa_base(long value, int base);
+char			*ft_ltoa_base(long long value, int base);
 char			*ft_utoa_base(unsigned long long value, int base, int lc);
 char			*ft_utoa(unsigned long long n);
 char			*ft_otoa(unsigned long long n);

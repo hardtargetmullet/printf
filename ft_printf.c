@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 20:56:46 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/12 07:13:46 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/19 21:14:59 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,13 @@ void		set_flags(char const *fmt, t_flags *flags)
 			while (ft_isdigit(*fmt))
 				fmt++;
 		}
-		if (*fmt)
+		if (*fmt && !ft_isalpha(*fmt))
 			fmt++;
 	}
 }
 
 static void	set_mod_flags(char const *fmt, t_flags *flags)
 {
-	int i;
-
-	i = 0;
 	if (fmt[0] == 'h' && fmt[1] && fmt[1] != 'h')
 		flags->h_mod = 1;
 	else if (fmt[0] == 'h' && fmt[1] && fmt[1] == 'h')

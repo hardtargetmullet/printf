@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 17:36:09 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/15 14:29:49 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/19 21:52:18 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int		main(void)
 {
 	char *p = "Hello";
 
+	//ft_printf("{%05s}\n", "abc");
+	ft_printf("{% C}\n", 0);
+	printf("{% C}\n", 0);
 	//ft_printf("%s %s\n", p,"PANDA");	
 	//ft_printf("%c, %c, %c\n", 64, 70, 85);
 	//printf("Field for chars [%10c]\n", 89);
@@ -52,7 +55,10 @@ int		main(void)
 	//printf("STD_C: no flag char[A] = [%lc]\n", L'ˆ');
 	//printf("STD_C: width=3 char[A] = [%lc]\n", L'∏');
 	/* --------Strings-----------------------*/
-	ft_printf("MINE_: NULL string [%s]", NULL);
+	//ft_printf("Mine_{%C}", 0);
+	//printf("%.5p", 0);
+	//ft_printf("%");
+	//printf("%");
 	/*
 	ft_printf("MINE_: no flag string[Hello] = [%s]\n", p);	
 	printf("STD_C: no flag string[Hello] = [%s]\n", p);
@@ -70,12 +76,13 @@ int		main(void)
 	printf("STD_C: w&pre-l string[Hello] = [%-10.4s]\n", p);
 	*/
 	/* --------Numbers -----------------------*/
+	//ft_printf("{%+03d}\n", 0);
+	//printf("{%+03d}\n", 0);
 	// signed char u = 'U';
 	// short s1 = -32000;
 	// long l1 = 90000000;
 	// long long ll1 = -9223372036854775807;
 	// intmax_t it =  2147483647;
-
 	// size_t t1 = -99;
 	// ft_printf("MINE_: Number[107] = [%hhi]\n", u);
 	// printf("STD_C: Number[107] = [%hhi]\n", u);
@@ -192,7 +199,9 @@ int		main(void)
 	printf("STD_C: Number[.0] = [%#.0x]\n", 0);	
 	*/
 	/* ---------Pointers -----------------------------*/
-		/*
+	//ft_printf("M_P %p\n", 0);
+	//printf("C's %p\n", 0);
+	/*
 	ft_printf("MINE_: Number[107] = [%p]\n", &p);
 	printf("STD_C: Number[107] = [%p]\n", &p);
 	ft_printf("MINE_: Number[107] = [%10p]\n", &p);

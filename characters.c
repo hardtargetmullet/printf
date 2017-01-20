@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 11:08:34 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/15 08:03:51 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/20 10:37:42 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 
 void	char_print(int c, t_flags *flags)
 {
-	int	i;
+	int		i;
+	char	d;
 
 	i = 0;
+	d = ' ';
+	if (flags->zero && !flags->neg_sign)
+		d = '0';
 	if (flags->neg_sign)
 		ft_putchar(c);
 	if (flags->field_width)
 	{
 		while (i < flags->field_width - 1)
 		{
-			ft_putchar(' ');
+			ft_putchar(d);
 			i++;
 		}
 	}
@@ -32,29 +36,11 @@ void	char_print(int c, t_flags *flags)
 	flags->total += i + 1;
 }
 
-static void	wide_print(char *p, t_flags *flags)
-{
-	int	i;
-
-	i = 0;
-	if (flags->neg_sign)
-		ft_putstr(p);
-	if (flags->field_width)
-		while (i < flags->field_width - (int)ft_strlen(p))
-		{
-			ft_putchar(' ');
-			i++;
-		}
-	if (!flags->neg_sign)
-		ft_putstr(p);
-	flags->total += i + ft_strlen(p);
-}
-
-static void	wide_handle(wint_t w, t_flags *flags)
+char	*wide_to_string(wint_t w)
 {
 	char *p;
 
-	p = ft_strnew(3);
+	p = ft_strnew(4);
 	if (w <= 0x07f)
 		p[0] = w;
 	else if (w <= 0x07ff)
@@ -75,7 +61,24 @@ static void	wide_handle(wint_t w, t_flags *flags)
 		p[2] = (w >> 6 & 0x3f) + 0x80;
 		p[3] = (w & 0x3f) + 0xc80;
 	}
-	wide_print(p, flags);
+	return(p);
+}
+
+void	wide_handle(wint_t w, t_flags *flags)
+{
+	char *s;
+
+	if (w < 0 || (w > 55295 && w < 57344) || w > 1114111)
+	{
+		flags->total = -1;
+		return ;
+	}
+	s = wide_to_string(w);
+	if (w == 0)
+		char_print(0, flags);
+	else
+		string(s, flags);
+	free(s);
 }
 
 void	characters(va_list ap, t_flags *flags, char spec)
