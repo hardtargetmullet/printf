@@ -41,7 +41,7 @@ char	*wide_to_string(wint_t w)
 	char *p;
 
 	p = ft_strnew(4);
-	if (w <= 0x07f)
+	if (w <= 0x0ff)
 		p[0] = w;
 	else if (w <= 0x07ff)
 	{
