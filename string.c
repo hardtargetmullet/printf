@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 13:45:22 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/19 19:17:11 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 16:05:30 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,36 @@ void	string_prep(char *s, t_flags *flags)
 	flags->total += size + i;
 }
 
-void	string(char *s, t_flags *flags)
+void static	long_string(wchar_t *ws, t_flags *flags)
+{
+	char *s;
+
+	s = NULL;
+	if (!ws)
+	{
+		s = "(null)";
+		string_prep(s, flags);
+	}
+	else
+		while(*ws)
+			wide_handle(*ws++, flags);
+}
+
+void	string(va_list ap, t_flags *flags, char c)
 {
 	char *blank;
+	char *s;
 
+	s = 0;
 	blank = "(null)";
-	if (s)
-		string_prep(s, flags);
+	if (c == 'S' || (flags->l_mod && c == 's'))
+		long_string(va_arg(ap, wchar_t *), flags);
 	else
-		string_prep(blank, flags);
+	{
+		s = va_arg(ap, char *);
+		if (s)
+			string_prep(s, flags);
+		else
+			string_prep(blank, flags);
+	}
 }
