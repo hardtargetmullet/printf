@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 17:39:21 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/20 10:38:09 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 16:03:47 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ typedef struct	s_flags
 
 int				ft_printf(const char *fmt, ...);
 int				printer(char const *fmt, va_list ap, t_flags *flags);
-void			string(char *s, t_flags *flags);
+void			string(va_list ap, t_flags *flags, char c);
 void			characters(va_list ap, t_flags *flags, char spec);
 void			number(va_list ap, t_flags *flags, char c);
 void			unumber(va_list ap, t_flags *flags, char c);
 void			pointer(void *v, t_flags *flags);
 void			binary(long long num, t_flags *flags);
+void			string_prep(char *s, t_flags *flags);
 char			*wide_to_string(wint_t w);
+void			wide_handle(wint_t w, t_flags *flags);
 int				ft_ismodflag(int c);
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
