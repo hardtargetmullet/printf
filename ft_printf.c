@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 20:56:46 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/23 16:59:07 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 19:35:28 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ static void	set_mod_flags(char const *fmt, t_flags *flags)
 		flags->z_mod = 1;
 }
 
+static void	set_bytes(int *n, t_flags *flags)
+{
+	*n = flags->total;
+}
+
 static void specifier(char c, va_list ap, t_flags *flags)
 {
 	if (c == '%')
@@ -121,7 +126,7 @@ static void specifier(char c, va_list ap, t_flags *flags)
 	if (c == 'b' || c == 'B')
 		binary(va_arg(ap, long long), flags);
 	if (c == 'n')
-		;
+		set_bytes(va_arg(ap, int *), flags);
 }
 
 int			printer(char const *fmt, va_list ap, t_flags *flags)
