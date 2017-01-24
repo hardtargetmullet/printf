@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 08:34:45 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/19 21:01:12 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 21:02:51 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	prep_number(uintmax_t num, t_flags *flags, int prefix)
 	char	*n;
 
 	size = num_size(num);
-	if (flags->pre_amount > size && !(flags->zero = 0))
+	if (flags->pre_amount >= size && !(flags->zero = 0))
 		size = flags->pre_amount;
 	if (prefix != 0 && !flags->zero)
 		size++;
