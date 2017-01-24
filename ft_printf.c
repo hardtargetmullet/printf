@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 20:56:46 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/20 12:39:21 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 16:59:07 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_ismodflag(int c)
 	return (0);
 }
 
-void		set_flags(char const *fmt, t_flags *flags)
+void		set_flags(char const *fmt, t_flags *flags, va_list ap)
 {
 	while (*fmt && !ft_isalpha(*fmt) && *fmt != '%')
 	{
@@ -51,11 +51,21 @@ void		set_flags(char const *fmt, t_flags *flags)
 			flags->hastag = 1;
 		else if (*fmt == '0')
 			flags->zero = 1;
-		else if (*fmt >= '1' && *fmt <= '9')
+		else if (ft_isdigit(*fmt) || *fmt == '*')
 		{
-			flags->field_width = ft_atoi(fmt);	
+			flags->field_width = ft_atoi(fmt);
 			while (ft_isdigit(*fmt))
 				fmt++;
+			if (*fmt == '*')
+			{
+				flags->field_width = va_arg(ap, int);
+				fmt++;
+				if (flags->field_width < 0)
+				{
+					flags->neg_sign = 1;
+					flags->field_width *= -1;
+				}
+			}
 		}
 		if (*fmt == '.')
 		{
@@ -64,6 +74,13 @@ void		set_flags(char const *fmt, t_flags *flags)
 			flags->pre_amount = ft_atoi(fmt);
 			while (ft_isdigit(*fmt))
 				fmt++;
+			if (*fmt == '*')
+			{
+				flags->pre_amount = va_arg(ap, int);
+				fmt++;
+			}
+			if (flags->pre_amount < 0)
+				flags->precision = 0;
 		}
 		if (*fmt && !ft_isalpha(*fmt))
 			fmt++;
@@ -93,7 +110,7 @@ static void specifier(char c, va_list ap, t_flags *flags)
 	if (c == 'c' || c == 'C')
 		characters(ap, flags, c);
 	if (c == 's' || c == 'S')
-		string(va_arg(ap, char *), flags);
+		string(ap, flags, c);
 	if (c == 'i' || c == 'd' || c == 'D')
 		number(ap, flags, c);
 	if (c == 'o' || c == 'x' || c == 'u' ||
@@ -114,8 +131,8 @@ int			printer(char const *fmt, va_list ap, t_flags *flags)
 	{
 		init_flags(flags);
 		if (*fmt == '%' && fmt++)
-		{	
-			set_flags(fmt, flags);
+		{
+			set_flags(fmt, flags, ap);
 			while (*fmt && !ft_isalpha(*fmt) && *fmt != '%')
 				fmt++;
 			set_mod_flags(fmt, flags);

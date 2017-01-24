@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 11:08:34 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/20 10:37:42 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/23 16:03:05 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ void	wide_handle(wint_t w, t_flags *flags)
 	if (w == 0)
 		char_print(0, flags);
 	else
-		string(s, flags);
+		string_prep(s, flags);
 	free(s);
+	s = NULL;
 }
 
 void	characters(va_list ap, t_flags *flags, char spec)
