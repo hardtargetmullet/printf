@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 11:08:34 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/23 16:03:05 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/25 14:39:19 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	char_print(int c, t_flags *flags)
 		d = '0';
 	if (flags->neg_sign)
 		ft_putchar(c);
-	if (flags->field_width)
+	if (flags->width)
 	{
-		while (i < flags->field_width - 1)
+		while (i < flags->width - 1)
 		{
 			ft_putchar(d);
 			i++;
@@ -61,7 +61,7 @@ char	*wide_to_string(wint_t w)
 		p[2] = (w >> 6 & 0x3f) + 0x80;
 		p[3] = (w & 0x3f) + 0xc80;
 	}
-	return(p);
+	return (p);
 }
 
 void	wide_handle(wint_t w, t_flags *flags)
@@ -78,8 +78,7 @@ void	wide_handle(wint_t w, t_flags *flags)
 		char_print(0, flags);
 	else
 		string_prep(s, flags);
-	free(s);
-	s = NULL;
+	ft_strdel(&s);
 }
 
 void	characters(va_list ap, t_flags *flags, char spec)

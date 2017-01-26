@@ -6,7 +6,7 @@
 #    By: anieto <anieto@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/23 01:57:34 by anieto            #+#    #+#              #
-#    Updated: 2017/01/10 21:13:29 by anieto           ###   ########.fr        #
+#    Updated: 2017/01/26 06:54:13 by anieto           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = libftprintf.a
 CFLAG = -c -Wall -Werror -Wextra
 
 SRCS = ft_printf.c characters.c ft_utoa.c number.c pointer.c string.c \
-	   unumber.c binary.c
+	   unumber.c oxnumber.c binary.c helper.c set_flags.c ft_re_alloc.c
 
 OBJS = $(SRCS:.c=.o)
 

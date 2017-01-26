@@ -6,45 +6,13 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 08:34:45 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/23 21:02:51 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/26 06:53:49 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/libftprintf.h"
 
-static void	spaces(int n, t_flags *flags, int c)
-{
-	int i;
-	
-	i = 0;
-	if (c)
-		c = '0';
-	else 
-		c = ' ';
-	if (n > 0)
-	{
-		while (i < n)
-		{
-			ft_putchar(c);
-			i++;
-		}
-		flags->total += i;
-	}
-}
-
-static	int	num_size(uintmax_t num)
-{
-	int len;
-
-	len = 1;
-	while (num/=10)
-	{
-		len++;
-	}
-	return (len);
-}
-
-static void number_print(char *str, t_flags *flags)
+static void	number_print(char *str, t_flags *flags)
 {
 	int size;
 
@@ -53,17 +21,18 @@ static void number_print(char *str, t_flags *flags)
 	{
 		ft_putstr(str);
 		flags->total += size;
-		spaces(flags->field_width - size, flags, 0);
+		spaces(flags->width - size, flags, 0);
 	}
 	else
 	{
 		if (flags->zero)
-			spaces(flags->field_width - size, flags, 1);
+			spaces(flags->width - size, flags, 1);
 		else
-			spaces(flags->field_width - size, flags, 0);
+			spaces(flags->width - size, flags, 0);
 		ft_putstr(str);
 		flags->total += size;
 	}
+	ft_strdel(&str);
 }
 
 static int	ft_putchar_ret(int c)
@@ -72,12 +41,12 @@ static int	ft_putchar_ret(int c)
 	return (1);
 }
 
-static void	prep_number(uintmax_t num, t_flags *flags, int prefix)
+static void	prep_number(uintmax_t num, t_flags *flags, char prefix)
 {
 	int		size;
 	char	*n;
 
-	size = num_size(num);
+	size = num_size(num, 10);
 	if (flags->pre_amount >= size && !(flags->zero = 0))
 		size = flags->pre_amount;
 	if (prefix != 0 && !flags->zero)
@@ -94,7 +63,7 @@ static void	prep_number(uintmax_t num, t_flags *flags, int prefix)
 			n[size] = '0';
 		num /= 10;
 	}
-	if (prefix && flags->zero && flags->field_width--)
+	if (prefix != 0 && flags->zero && flags->width--)
 		flags->total += ft_putchar_ret(prefix);
 	else if (prefix)
 		n[0] = prefix;
@@ -120,12 +89,12 @@ void		number(va_list ap, t_flags *flags, char c)
 		num = va_arg(ap, ssize_t);
 	else
 		num = va_arg(ap, int);
-	prefix = (flags->pos_sign) ? '+': 0;
-	prefix = (flags->space && (!flags->pos_sign)) ? ' ': prefix;
-	prefix = ((num < 0) && (num *= -1)) ? '-': prefix;
-	if (num == 0 && !flags->field_width && flags->precision && !flags->pre_amount)
+	prefix = (flags->pos_sign) ? '+' : 0;
+	prefix = (flags->space && (!flags->pos_sign)) ? ' ' : prefix;
+	prefix = ((num < 0) && (num *= -1)) ? '-' : prefix;
+	if (num == 0 && !flags->width && flags->precision && !flags->pre_amount)
 		return ;
-	if (num == 0 && flags->field_width && !flags->pre_amount)
+	if (num == 0 && flags->precision && !flags->pre_amount)
 		return (char_print(' ', flags));
 	prep_number((uintmax_t)num, flags, prefix);
 }
