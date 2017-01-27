@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 13:45:22 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/26 03:15:38 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/26 07:17:44 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	neg_on(char *s, t_flags *flags)
 			how_much(s, flags->pre_amount);
 }
 
-
 void		string_prep(char *s, t_flags *flags)
 {
 	int	i;
@@ -55,7 +54,7 @@ void		string_prep(char *s, t_flags *flags)
 				write(1, "0", 1);
 			i++;
 		}
-	if (flags->precision == 0  && !flags->neg_sign)
+	if (flags->precision == 0 && !flags->neg_sign)
 		ft_putstr(s);
 	if (flags->precision == 1 && !flags->neg_sign)
 		if (flags->pre_amount != 0)
@@ -63,7 +62,7 @@ void		string_prep(char *s, t_flags *flags)
 	flags->total += size + i;
 }
 
-void static	long_string(wchar_t *ws, t_flags *flags)
+static void	long_string(wchar_t *ws, t_flags *flags)
 {
 	int		total;
 	int		len;

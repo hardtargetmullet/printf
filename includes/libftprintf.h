@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 17:39:21 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/26 02:52:34 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/26 07:10:54 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 # include <locale.h>
 # include <wchar.h>
 
