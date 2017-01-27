@@ -6,7 +6,7 @@
 /*   By: anieto <anieto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 17:39:21 by anieto            #+#    #+#             */
-/*   Updated: 2017/01/26 07:10:54 by anieto           ###   ########.fr       */
+/*   Updated: 2017/01/26 22:06:08 by anieto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ char			*ft_re_alloc(char *str, size_t size);
 char			*ft_capitalize(char *str);
 char			*ft_strnew(size_t size);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_itoa(int n);
-char			*ft_itoa_base(int value, int base);
 char			*ft_ltoa_base(long long value, int base);
-char			*ft_utoa_base(unsigned long long value, int base, int lc);
-char			*ft_utoa(unsigned long long n);
-char			*ft_otoa(unsigned long long n);
 char			*ft_strdup(const char *s1);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strncat(char *s1, const char *s2, size_t n);
